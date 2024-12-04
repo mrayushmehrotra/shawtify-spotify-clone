@@ -1,3 +1,6 @@
+# Demo 
+<a href="https://www.linkedin.com/posts/ayushmehrotraa_nextjs-supabase-webdevelopment-activity-7146040664978251777-eUwn?utm_source=share&utm_medium=member_desktop">Video Link</a>
+
 # Full Stack Spotify Clone with Next.js 13.4 App Router: React, Tailwind, Supabase, PostgreSQL, Stripe
 
 This is a repository for a Full Stack Spotify Clone with Next.js 13.4 App Router: React, Tailwind, Supabase, PostgreSQL, Stripe
