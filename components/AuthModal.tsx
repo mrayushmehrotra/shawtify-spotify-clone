@@ -8,17 +8,13 @@ import {
   useSupabaseClient,
 } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
-
 import useAuthModal from "@/hooks/useAuthModal";
-
 import Modal from "./Modal";
-import toast from "react-hot-toast";
 
 const AuthModal = () => {
   const { session } = useSessionContext();
   const router = useRouter();
   const { onClose, isOpen } = useAuthModal();
-
   const supabaseClient = useSupabaseClient();
 
   useEffect(() => {
@@ -34,6 +30,22 @@ const AuthModal = () => {
     }
   };
 
+  // Guest Login Function
+  const handleGuestLogin = async () => {
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email: "demo@gmail.com",
+      password: "demodemo",
+    });
+
+    if (error) {
+      console.error("Guest Login Failed:", error.message);
+    } else {
+      console.log("Guest Login Success:", data);
+      router.refresh();
+      onClose();
+    }
+  };
+
   return (
     <Modal
       title="Welcome back"
@@ -41,14 +53,23 @@ const AuthModal = () => {
       isOpen={isOpen}
       onChange={onChange}
     >
-      <div>
-        <h1>
-          <span>Email:= </span>demo@gmail.com
-        </h1>
-        <h1>
-          <span>Password:= </span>demodemo
-        </h1>
+      <div className="flex flex-col items-center space-y-4">
+        <div className="bg-gray-800 text-white p-4 rounded-lg">
+          <p>
+            Email: <strong>demo@gmail.com</strong>
+          </p>
+          <p>
+            Password: <strong>demodemo</strong>
+          </p>
+        </div>
+        <button
+          onClick={handleGuestLogin}
+          className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+        >
+          Guest Login
+        </button>
       </div>
+
       <Auth
         supabaseClient={supabaseClient}
         providers={["github"]}
